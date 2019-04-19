@@ -17,3 +17,11 @@ COPY ./wkhtmltopdf/wkhtmltox_0.12.5-1.stretch_amd64.deb /tmp
 RUN apt-get install -y fontconfig libfontenc1 libxfont1 x11-common xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils
 RUN dpkg -i /tmp/wkhtmltox_0.12.5-1.stretch_amd64.deb
 RUN wkhtmltopdf -V
+
+# Fonts
+COPY ./fonts/msyhbd.ttc /usr/share/fonts
+COPY ./fonts/msyhl.ttc /usr/share/fonts
+COPY ./fonts/msyh.ttc /usr/share/fonts
+COPY ./fonts/simsunb.ttf /usr/share/fonts
+COPY ./fonts/simsun.ttc /usr/share/fonts
+
