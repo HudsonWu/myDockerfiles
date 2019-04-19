@@ -1,4 +1,5 @@
-FROM registry-vpc.cn-shenzhen.aliyuncs.com/mytools/dotnetsdk21
+# FROM registry-vpc.cn-shenzhen.aliyuncs.com/mytools/dotnetsdk21
+FROM registry-vpc.cn-shenzhen.aliyuncs.com/mytools/dotnetsdk11
 
 # Fonts
 COPY ./fonts/msyhbd.ttc /usr/share/fonts
