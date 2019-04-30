@@ -1,0 +1,22 @@
+FROM debian:9
+
+LABEL maintainer="hudson <wuhaishui2013@126.com>"
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+ENV TZ=Asia/Shanghai
+
+RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list
+
+# 安装libsodium和一些依赖工具
+RUN apt-get update -y && apt-get install -y python-m2crypto libsodium-dev git
+
+# 获取shadowsocksr源代码
+RUN git clone https://github.com/HudsonWu/shadowsocksr.git -b hudson
+
+WORKDIR /shadowsocksr/shadowsocks
+
+ENTRYPOINT ["/usr/bin/python", "/shadowsocksr/shadowsocks/server.py"]
