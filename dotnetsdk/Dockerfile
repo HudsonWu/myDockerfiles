@@ -5,12 +5,14 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free \
-          deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free \
-          deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free \
-          deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib" > /etc/apt/sources.list
+RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free" > /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
+    echo "deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list
 
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN apt-get update -y && apt-get install -y --no-install-recommends apt-utils
+
+RUN apt-get -y install vim
 
 # 解决Asp.Net Core 使用System.Drawing.Common部署到docker报错问题
 # https://www.cnblogs.com/sunnytrudeau/p/9384620.html
