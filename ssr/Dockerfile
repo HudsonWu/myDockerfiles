@@ -3,13 +3,15 @@ FROM debian:9
 LABEL maintainer="hudson <wuhaishui2013@126.com>"
 
 ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Asia/Shanghai
 
-ENV TZ Asia/Shanghai
-ENV SERVER_ADDR 0.0.0.0
-ENV SERVER_PORT 46176
-ENV METHOD chacha20-ietf
-ENV PROTOCOL auth_aes128_md5
-ENV OBFS tls1.2_ticket_fastauth
+ENV SERVER_ADDR=0.0.0.0 \
+    SERVER_PORT=46176 \
+    PASSWORD=HelloWorld \
+    METHOD=chacha20-ietf \
+    PROTOCOL=auth_aes128_md5 \
+    OBFS=tls1.2_ticket_fastauth \
+    CMD=/shadowsocksr/shadowsocks/server.py
 
 RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free" > /etc/apt/sources.list && \
     echo "deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free" >> /etc/apt/sources.list && \
@@ -26,4 +28,4 @@ RUN git clone https://github.com/HudsonWu/shadowsocksr.git -b hudson
 
 WORKDIR /shadowsocksr/shadowsocks
 
-ENTRYPOINT ["python", "/shadowsocksr/shadowsocks/server.py", "-s", "${SERVER_ADDR}", "-p", "${SERVER_PORT}", "-m", "${METHOD}", "-O", "${PROTOCOL", "-o", "${OBFS}"]
+ENTRYPOINT ["/bin/sh", "-c", "$CMD -s ${SERVER_ADDR} -p ${SERVER_PORT} -k ${PASSWORD} -m ${METHOD} -O ${PROTOCOL} -o ${OBFS}"]
