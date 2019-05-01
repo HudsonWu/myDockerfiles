@@ -29,7 +29,6 @@ docker run --name ssr-client -p 1080:1080 -e CMD=local.py -d hudsonwu/ssr
 |PROTOCOL|协议|...|
 |OBFS|混淆|...|
 |CMD|启动类型|`server.py`, `local.py`|
-```
 
 ## References
 
