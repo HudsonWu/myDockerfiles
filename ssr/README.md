@@ -3,7 +3,7 @@
 ## 镜像构建命令
 
 ```
-docker build -f Dockerfile -t hudson/ssr .
+docker build -f Dockerfile -t hudsonwu/ssr .
 ```
 
 ## 启动方式
