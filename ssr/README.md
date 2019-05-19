@@ -4,6 +4,7 @@
 
 ```
 docker build -f Dockerfile -t hudsonwu/ssr .
+docker build -f file_Dockerfile -t hudsonwu/ssr:file .
 ```
 
 ## 启动方式
@@ -13,7 +14,7 @@ docker build -f Dockerfile -t hudsonwu/ssr .
 docker run --name ssr-server -p 46176:46176 -d hudsonwu/ssr
 
 # Client端
-docker run --name ssr-client -p 1080:1080 -e CMD=local.py -d hudsonwu/ssr
+docker run --name ssr-client -p 1080:1080 -e START=local.py -d hudsonwu/ssr
 ```
 
 ### 环境变量支持
@@ -28,7 +29,7 @@ docker run --name ssr-client -p 1080:1080 -e CMD=local.py -d hudsonwu/ssr
 |METHOD|加密方式|...|
 |PROTOCOL|协议|...|
 |OBFS|混淆|...|
-|CMD|启动类型|`server.py`, `local.py`|
+|START|启动类型|`server.py`, `local.py`|
 
 ## References
 
