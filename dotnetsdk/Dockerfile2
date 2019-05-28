@@ -1,6 +1,6 @@
 # 增量构建镜像
-FROM registry-vpc.cn-shenzhen.aliyuncs.com/mytools/dotnetsdk22
-# FROM registry-vpc.cn-shenzhen.aliyuncs.com/mytools/dotnetsdk21
-# FROM registry-vpc.cn-shenzhen.aliyuncs.com/mytools/dotnetsdk11
+FROM hudsonwu/dotnetsdk:22
+# FROM hudsonwu/dotnetsdk:21
+# FROM hudsonwu/dotnetsdk:11
 
 # 添加增量代码
