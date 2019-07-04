@@ -1,0 +1,22 @@
+version: "3.1"
+
+networks:
+  help:
+    driver: "bridge"
+
+services:
+  msagent:
+    image: "lambda3/azure-pipelines-agent:docker"
+    container_name: "msagent"
+    environment:
+      - AGENT_PAT=7v4uyvxauo2dozf3om2vz6jansjqffor222
+      - AGENT_POOL=Default
+      - VS_TENANT=yourproject
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime
+    networks:
+      - help
+    stdin_open: true
+    tty: true
+    restart: always
