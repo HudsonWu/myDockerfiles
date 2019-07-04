@@ -1,0 +1,26 @@
+version: "3.1"
+
+networks:
+  help:
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: 10.2.14.0/24
+
+services:
+  dotnet-example:
+    image: "mcr.microsoft.com/dotnet/core/sdk:2.2"
+    restart: always
+    container_name: "dotnet-example"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/projectname:/projectname
+    working_dir: /projectname
+    expose:
+      - 80
+    command: "dotnet /projectname/projectname.dll"
+    networks:
+      help:
+        ipv4_address: 10.2.14.3
