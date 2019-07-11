@@ -1,7 +1,30 @@
-# docker-compose.yaml
-#
-teleport:
-  image: "hudsonwu/teleport"
-  restart: "always"
+version: "3.1"
+
+networks:
+  teleport:
+    driver: "bridge"
+    ipam:
+      config:
+        - subnet: 10.2.5.0/24
+services:
+  teleport:
+    image: "hudsonwu/teleport:3.2.2"
+    restart: "always"
+    container_name: "teleport"
+    ports:
+      - 7190:7190
+      - 52089:52089
+      - 52189:52189
+      - 52389:52389
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/teleport:/teleport
+      - ./teleport/core.ini:/usr/local/teleport/data/etc/core.ini
+      - ./teleport/web.ini:/usr/local/teleport/data/etc/web.ini
+    networks:
+      fanyou:
+        ipv4_address: 10.2.5.110
+
+
   
   
