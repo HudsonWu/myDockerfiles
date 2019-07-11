@@ -24,7 +24,3 @@ services:
     networks:
       fanyou:
         ipv4_address: 10.2.5.110
-
-
-  
-  
