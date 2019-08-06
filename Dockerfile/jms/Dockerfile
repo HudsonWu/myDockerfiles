@@ -27,3 +27,5 @@ RUN pip3 install --no-cache -r /tmp/requirements.txt
 
 RUN rm -rf /var/cache/* \
     && rm -rf /root/.cache/*
+
+COPY jumpserver /opt/jumpserver
