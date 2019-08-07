@@ -22,6 +22,10 @@ COPY requirements.txt /tmp
 RUN python3 -m pip install --upgrade pip \
     && python3 -m pip install --no-cache -r /tmp/requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
+RUN cd /opt && python3 -m venv --system-site-packages hello
+
 COPY jumpserver /opt/jumpserver
+
+COPY start.sh /opt
 
 WORKDIR /opt/jumpserver
