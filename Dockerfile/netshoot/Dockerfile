@@ -10,3 +10,4 @@ RUN apk add --no-cache \
     sysstat procps screen \
     perf
 
+COPY localtime /etc
