@@ -7,5 +7,6 @@ RUN set -ex \
     && apk upgrade
 
 RUN apk add --no-cache \
-    sysstat procps screen
+    sysstat procps screen \
+    perf
 
