@@ -28,4 +28,9 @@ RUN pip3 install --no-cache -r /tmp/requirements.txt
 RUN rm -rf /var/cache/* \
     && rm -rf /root/.cache/*
 
+RUN cd /opt && python3 -m venv --system-site-packages hello
+
 COPY jumpserver /opt/jumpserver
+COPY start.sh /opt/
+
+WORKDIR /opt
