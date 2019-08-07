@@ -28,4 +28,8 @@ COPY jumpserver /opt/jumpserver
 
 COPY start.sh /opt
 
+RUN yum -y groupinstall "Fonts" \
+    && yum -y groupinstall "Input Methods"
+COPY i18n /etc/sysconfig
+
 WORKDIR /opt/jumpserver
