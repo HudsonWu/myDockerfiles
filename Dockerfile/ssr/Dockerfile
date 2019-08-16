@@ -1,30 +1,27 @@
-FROM debian:9
+FROM alpine:3.10
 
 LABEL maintainer="hudson <wuhaishui2013@126.com>"
 
-ARG DEBIAN_FRONTEND=noninteractive
-ENV TZ=Asia/Shanghai
+COPY repositories /etc/apk/repositories
+
+RUN apk update
+
+RUN apk add --no-cache python python-dev \
+    gcc musl-dev libffi-dev libressl-dev \
+    git bash libsodium-dev
+
+RUN apk add py-m2crypto --repository http://nl.alpinelinux.org/alpine/edge/testing/
 
 ENV SERVER_ADDR=0.0.0.0 \
-    SERVER_PORT=46176 \
+    SERVER_PORT=8087 \
     PASSWORD=HelloWorld \
     METHOD=chacha20-ietf \
     PROTOCOL=auth_aes128_md5 \
     OBFS=tls1.2_ticket_fastauth \
     START=/shadowsocksr/shadowsocks/server.py
 
-RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free" > /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list
-
-RUN apt-get update -y && apt-get install -y --no-install-recommends apt-utils
-
-# 安装libsodium和一些依赖工具
-RUN apt-get install -y python-m2crypto libsodium-dev git
-
 # 获取shadowsocksr源代码
-RUN git clone https://github.com/HudsonWu/shadowsocksr.git -b hudson
+RUN cd / && git clone https://github.com/HudsonWu/shadowsocksr.git -b hudson
 
 WORKDIR /shadowsocksr/shadowsocks
 
