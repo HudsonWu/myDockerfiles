@@ -1,7 +1,11 @@
-# 基础镜像, 根据需要选择dotnet sdk版本
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2
+# 基础镜像, 根据需要选择dotnet core版本
+## 使用dotnet sdk
+#FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 #FROM mcr.microsoft.com/dotnet/core/sdk:1.1-stretch
 #FROM mcr.microsoft.com/dotnet/core/sdk:2.1
+## 使用dotnet runtime
+#FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.1
 
 ARG DEBIAN_FRONTEND=noninteractive
 
