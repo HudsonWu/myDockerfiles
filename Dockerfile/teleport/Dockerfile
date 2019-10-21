@@ -14,10 +14,12 @@ RUN rm -rf /tmp/teleport
 
 COPY config/web.ini /usr/local/teleport/data/etc
 COPY config/core.ini /usr/local/teleport/data/etc
-COPY startup.sh /
+COPY startup /startup
 
-RUN chmod +x startup.sh
+RUN mkdir -p /teleport/log && touch /teleport/log/tpcore.log && touch /teleport/log/tpweb.log
+
+RUN chmod +x startup/*.sh
 
 EXPOSE 7190 52089 52189 52389
 
-CMD [ "/startup.sh" ]
+CMD [ "/startup/allstart.sh" ]

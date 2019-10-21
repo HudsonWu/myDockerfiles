@@ -1,18 +1,21 @@
 # 基础镜像, 根据需要选择dotnet core版本
 ## 使用dotnet sdk
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2
+#FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+#FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 #FROM mcr.microsoft.com/dotnet/core/sdk:1.1-stretch
 #FROM mcr.microsoft.com/dotnet/core/sdk:2.1
 ## 使用dotnet runtime
 #FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 #FROM mcr.microsoft.com/dotnet/core/aspnet:2.1
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN echo "deb http://mirrors.aliyun.com/debian stretch main contrib non-free" > /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/debian stretch-proposed-updates main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/debian stretch-updates main contrib non-free" >> /etc/apt/sources.list && \
-    echo "deb http://mirrors.aliyun.com/debian-security/ stretch/updates main non-free contrib" >> /etc/apt/sources.list
+# 3.0使用debian buster源
+COPY sources.buster.list /etc/apt/sources.list
+
+# 2.x使用debian stretch
+# COPY sources.stretch.list /etc/apt/sources.list
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends apt-utils
 
@@ -26,7 +29,13 @@ RUN apt-get install libgdiplus -y && ln -s libgdiplus.so gdiplus.dll
 
 # wkhtmltopdf
 COPY ./wkhtmltopdf/wkhtmltox_0.12.5-1.stretch_amd64.deb /tmp
-RUN apt-get install -y fontconfig libfontenc1 libxfont1 x11-common xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils
+
+# 2.x执行
+# RUN apt-get install -y fontconfig libfontenc1 libxfont1 x11-common xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils
+
+# 3.0执行
+RUN apt-get install -y fontconfig libfontenc1 x11-common xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils
+
 RUN dpkg -i /tmp/wkhtmltox_0.12.5-1.stretch_amd64.deb
 RUN wkhtmltopdf -V
 

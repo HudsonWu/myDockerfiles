@@ -21,6 +21,7 @@ services:
       - /var/log/teleport:/teleport
       - ./teleport/core.ini:/usr/local/teleport/data/etc/core.ini
       - ./teleport/web.ini:/usr/local/teleport/data/etc/web.ini
+    command: "/startup/allstart.sh"
     networks:
       fanyou:
         ipv4_address: 10.2.5.110
