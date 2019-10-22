@@ -2,7 +2,7 @@
 
 构建docker镜像时, Dockerfile文件示例, 随时取用
 
-## `DEBIAN_FRONTEND=noninteractive`
+### 非交互模式
 
 ```
 # ARG
@@ -16,6 +16,18 @@ ENV DEBIAN_FRONTEND teletype
 # on-the-fly
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get -qq install {your-package}
+
+```
+
+### sudo权限
+
+```
+RUN apt-get update \
+  && apt-get install -y sudo \
+  && rm -rf /var/lib/apt/lists/*
+
+# 给予用户sudo权限
+RUN echo "username ALL=NOPASSWD: ALL" >> /etc/sudoers
 ```
 
 ## References
