@@ -1,6 +1,0 @@
-# 增量构建镜像
-FROM hudsonwu/dotnetsdk:2.2
-# FROM hudsonwu/dotnetsdk:2.1
-# FROM hudsonwu/dotnetsdk:1.1
-
-# 添加增量代码
