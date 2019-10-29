@@ -14,3 +14,5 @@ RUN apk add --no-cache \
 RUN apk add --no-cache \
     perf git
 
+RUN apk add --no-cache \
+    gdb
