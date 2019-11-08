@@ -1,21 +1,25 @@
 # 基础镜像, 根据需要选择dotnet core版本
-## 使用dotnet sdk
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0
-#FROM mcr.microsoft.com/dotnet/core/sdk:2.2
-#FROM mcr.microsoft.com/dotnet/core/sdk:1.1-stretch
-#FROM mcr.microsoft.com/dotnet/core/sdk:2.1
 ## 使用dotnet runtime
 #FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 #FROM mcr.microsoft.com/dotnet/core/aspnet:2.1
-#FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
+## dotnet sdk
+#FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+#FROM mcr.microsoft.com/dotnet/core/sdk:2.2
+#FROM mcr.microsoft.com/dotnet/core/sdk:1.1-stretch
+#FROM mcr.microsoft.com/dotnet/core/sdk:1.1
+#FROM mcr.microsoft.com/dotnet/core/sdk:2.1
 
 ARG DEBIAN_FRONTEND=noninteractive
 
-# 3.0使用debian buster源
+# 3.0使用debian buster
 COPY sources.buster.list /etc/apt/sources.list
 
-# 2.x使用debian stretch
+# 2.x或者1.1-stretch使用debian stretch
 # COPY sources.stretch.list /etc/apt/sources.list
+
+# 1.1使用debian jessie
+# COPY sources.jessie.list /etc/apt/sources.list
 
 RUN apt-get update -y && apt-get install -y --no-install-recommends apt-utils
 
