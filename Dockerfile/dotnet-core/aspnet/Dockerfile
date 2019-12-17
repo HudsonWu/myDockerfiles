@@ -2,7 +2,8 @@
 ## 使用dotnet runtime
 #FROM mcr.microsoft.com/dotnet/core/aspnet:2.2
 #FROM mcr.microsoft.com/dotnet/core/aspnet:2.1
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
+#FROM mcr.microsoft.com/dotnet/core/aspnet:3.0
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 ## dotnet sdk
 #FROM mcr.microsoft.com/dotnet/core/sdk:3.0
 #FROM mcr.microsoft.com/dotnet/core/sdk:2.2

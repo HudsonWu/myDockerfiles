@@ -1,7 +1,8 @@
 # FROM hudsonwu/dotnetsdk:2.2
 # FROM mcr.microsoft.com/dotnet/core/sdk:2.1
 # FROM mcr.microsoft.com/dotnet/core/sdk:2.2
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+# FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
 
 # 2.x
 # COPY sources.stretch.list /etc/apt/sources.list
