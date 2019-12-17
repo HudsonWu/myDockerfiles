@@ -22,6 +22,9 @@ RUN apt-get update \
        zip \
     && rm -rf /var/lib/apt/lists/*
 
+ENV PATH="$PATH:/root/.dotnet/tools"
+RUN dotnet tool install --global dotnet-trace
+
 WORKDIR /tools
 
 COPY perfcollect /tools
@@ -30,4 +33,3 @@ COPY crossgen /tools
 # perfcollect expects to find crossgen along side libcoreclr.so
 RUN cp /tools/crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
 
-# ENTRYPOINT ["/bin/bash"]
