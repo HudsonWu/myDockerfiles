@@ -2,14 +2,16 @@
 # FROM mcr.microsoft.com/dotnet/core/sdk:2.1
 # FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 # FROM mcr.microsoft.com/dotnet/core/sdk:3.0
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+# FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+FROM registry-vpc.cn-shenzhen.aliyuncs.com/mytools/dotnetsdk:3.0
 
 # 2.x
 # COPY sources.stretch.list /etc/apt/sources.list
 
-# 3.0
+# 3.x
 COPY sources.buster.list /etc/apt/sources.list
 
+# 2.x: linux-tools, 3.x: linux-perf
 RUN apt-get update \
     && apt-get install -y \
        binutils \
@@ -17,7 +19,7 @@ RUN apt-get update \
        htop \
        procps \
        liblttng-ust-dev \
-       linux-tools \
+       linux-perf \
        lttng-tools \
        lldb \
        zip \
