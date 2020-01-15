@@ -16,14 +16,14 @@ RUN cd /usr/bin \
     && ln -sf pip3 pip
 
 
-COPY requirements.txt /tmp
+COPY pip3_requirements.txt /tmp
 
 COPY alpine_requirements.txt /tmp
 
 RUN apk add --no-cache $(cat /tmp/alpine_requirements.txt)
 
 RUN pip3 config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-RUN pip3 install --no-cache -r /tmp/requirements.txt
+RUN pip3 install --no-cache -r /tmp/pip3_requirements.txt
 
 RUN rm -rf /var/cache/* \
     && rm -rf /root/.cache/*
