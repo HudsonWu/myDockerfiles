@@ -1,0 +1,35 @@
+# 基础镜像, 根据需要选择dotnet core版本
+#
+## 使用dotnet/core/aspnet
+# FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-bionic
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic
+## 使用dotnet/core/sdk
+# FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
+
+# 3.x-bionic
+COPY sources.bionic.list /etc/apt/sources.list
+
+RUN apt-get update -y && apt-get -y install vim
+
+# 解决Asp.Net Core 使用System.Drawing.Common部署到docker报错问题
+# https://www.cnblogs.com/sunnytrudeau/p/9384620.html
+RUN ln -s /lib/x86_64-linux-gnu/libdl-2.24.so /lib/x86_64-linux-gnu/libdl.so
+RUN apt-get install libfontconfig1 -y
+RUN apt-get install libgdiplus -y && ln -s libgdiplus.so gdiplus.dll
+
+# wkhtmltopdf
+COPY ./wkhtmltox_0.12.5-1.bionic_amd64.deb /tmp
+
+# 3.x执行
+RUN apt-get install -y fontconfig libfontenc1 x11-common xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils
+
+RUN dpkg -i /tmp/wkhtmltox_0.12.5-1.bionic_amd64.deb
+RUN wkhtmltopdf -V
+RUN rm -f /tmp/wkhtmltox_0.12.5-1.bionic_amd64.deb
+
+# Fonts
+COPY ./fonts/msyhbd.ttc /usr/share/fonts
+COPY ./fonts/msyhl.ttc /usr/share/fonts
+COPY ./fonts/msyh.ttc /usr/share/fonts
+COPY ./fonts/simsunb.ttf /usr/share/fonts
+COPY ./fonts/simsun.ttc /usr/share/fonts
