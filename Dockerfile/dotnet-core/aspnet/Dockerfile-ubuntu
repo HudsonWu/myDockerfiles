@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic
 # FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
 
 # 3.x-bionic
-COPY sources.bionic.list /etc/apt/sources.list
+COPY ubuntu/sources.bionic.list /etc/apt/sources.list
 
 RUN apt-get update -y && apt-get -y install vim
 
@@ -18,7 +18,7 @@ RUN apt-get install libfontconfig1 -y
 RUN apt-get install libgdiplus -y && ln -s libgdiplus.so gdiplus.dll
 
 # wkhtmltopdf
-COPY ./wkhtmltox_0.12.5-1.bionic_amd64.deb /tmp
+COPY ubuntu/wkhtmltox_0.12.5-1.bionic_amd64.deb /tmp
 
 # 3.x执行
 RUN apt-get install -y fontconfig libfontenc1 x11-common xfonts-75dpi xfonts-base xfonts-encodings xfonts-utils
