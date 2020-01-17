@@ -3,27 +3,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic
 
 COPY ubuntu/sources.bionic.list /etc/apt/sources.list
 
-RUN apt-get update \
-    && apt-get install -y \
-       binutils \
-       curl \
-       htop \
-       procps \
-       liblttng-ust-dev \
-       linux-tools-common \
-       lttng-tools \
-       lldb \
-       zip \
-    && rm -rf /var/lib/apt/lists/*
-
 ENV PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet tool install --global dotnet-trace
 
 WORKDIR /tools
-
-COPY perfcollect /tools
-COPY crossgen /tools
-
-# perfcollect expects to find crossgen along side libcoreclr.so
-RUN cp /tools/crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
-

@@ -1,13 +1,25 @@
-# FROM mcr.microsoft.com/dotnet/core/sdk:2.1-stretch
-FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch
+ARG REPO=mcr.microsoft.com/dotnet/core/sdk:2.2-stretch
+FROM $REPO AS builder
 
-# 2.x
+WORKDIR /helloworld
+
+# 创建一个helloworld样例应用
+RUN dotnet new console
+
+# 下载包含crossgen的运行时包
+RUN dotnet restore -r linux-x64
+
+RUN cp `find ~/.nuget/packages -name crossgen` .
+
+FROM $REPO AS debug
+
+# debian stretch
 COPY debian/sources.stretch.list /etc/apt/sources.list
 
-# 3.x
+# debian buster
 # COPY debian/sources.buster.list /etc/apt/sources.list
 
-# 2.x: linux-tools, 3.x: linux-perf
+# stretch: linux-tools, buster: linux-perf
 RUN apt-get update \
     && apt-get install -y \
        binutils \
@@ -27,7 +39,7 @@ RUN dotnet tool install --global dotnet-trace
 WORKDIR /tools
 
 COPY perfcollect /tools
-COPY crossgen /tools
+COPY --from=builder /helloworld/crossgen /tools
 
 # perfcollect expects to find crossgen along side libcoreclr.so
 RUN cp /tools/crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
