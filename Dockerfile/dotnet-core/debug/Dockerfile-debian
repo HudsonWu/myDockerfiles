@@ -19,6 +19,9 @@ COPY debian/sources.stretch.list /etc/apt/sources.list
 # debian buster
 # COPY debian/sources.buster.list /etc/apt/sources.list
 
+# COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
+ENV COMPlus_PerfMapEnabled=1
+
 # stretch: linux-tools, buster: linux-perf
 RUN apt-get update \
     && apt-get install -y \
@@ -32,9 +35,6 @@ RUN apt-get update \
        lldb \
        zip \
     && rm -rf /var/lib/apt/lists/*
-
-ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet tool install --global dotnet-trace
 
 WORKDIR /tools
 
