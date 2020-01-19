@@ -22,6 +22,8 @@ COPY debian/sources.stretch.list /etc/apt/sources.list
 # COMPlus_PerfMapEnabled is set in order to resolve symbols for .NET code.
 ENV COMPlus_PerfMapEnabled=1
 
+ENV COMPlus_EnableEventLog=1
+
 # stretch: linux-tools, buster: linux-perf
 RUN apt-get update \
     && apt-get install -y \
