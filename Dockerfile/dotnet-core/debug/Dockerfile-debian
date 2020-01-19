@@ -42,5 +42,6 @@ COPY perfcollect /tools
 COPY --from=builder /helloworld/crossgen /tools
 
 # perfcollect expects to find crossgen along side libcoreclr.so
+# 还需要手动复制crossgen到应用目录下面
 RUN cp /tools/crossgen $(dirname `find /usr/share/dotnet/ -name libcoreclr.so`)
 
